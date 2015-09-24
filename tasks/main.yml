@@ -34,7 +34,7 @@
 
 - name: Install (or update) docker package
   apt:
-    name: "{{ docker_pkg_name }}"
+    name: "{{ docker_pkg_name }}{{ '' if (update_docker_package is undefined or update_docker_package is none or (update_docker_package | trim == '')) else '=' + docker_pkg_version }}"
     state: "{{ 'latest' if update_docker_package else 'present' }}"
     update_cache: yes
     cache_valid_time: "{{ docker_apt_cache_valid_time }}"
